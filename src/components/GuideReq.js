@@ -52,6 +52,13 @@ const GuideReq = ({ req, users, user,token }) => {
         >
           تایید نشده
         </Button>
+        <Button
+          className="btn-light"
+          style={state === 3 ? { borderBottom: "3px solid #135D66" } : {}}
+          onClick={() => setState(3)}
+        >
+          تایید زمان نهایی
+        </Button>
       </div>
       {state === 0 && (
         <div className="guide-new-req">
@@ -69,8 +76,8 @@ const GuideReq = ({ req, users, user,token }) => {
           {req.map(
             (item) =>
               item.supervising_professor === user.id &&
-              item.active_supervisor === "T" && (
-                <AgentReq item={item} users={users} step={2} />
+              item.active_supervisor === "T" &&(
+                <AgentReq item={item} users={users} step={2} user={user} />
               )
           )}
         </div>
@@ -82,6 +89,17 @@ const GuideReq = ({ req, users, user,token }) => {
               item.supervising_professor === user.id &&
               item.active_supervisor === "F" && (
                 <AgentReq item={item} users={users} step={2} />
+              )
+          )}
+        </div>
+      )}
+      {state === 3 && (
+        <div className="agent-content">
+          {req.map(
+            (item) =>
+              item.supervising_professor === user.id &&
+              item.active_supervisor === "T" && item.confirmTimeArbitrator && item.confirmTimePresentative && !item.final_time &&(
+                <AgentReq item={item} users={users} step={5} user={user} />
               )
           )}
         </div>

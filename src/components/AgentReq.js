@@ -28,56 +28,81 @@ const Agent = ({ item, users, user, step }) => {
   const handleClose = () => setOpen(false);
   const [timeArbitrator, setTimeArbitrator] = useState("");
   const [timePresentative, setTimePresentative] = useState("");
+  const [finalTime, setFinaltime] = useState("");
 
   const handleTimeArbitrator = (e) => {
     window.location.reload();
     axios
-    .patch(
-      `http://127.0.0.1:8000/api/request/user-request/${item.id}/`,
-      {
-        confirmTimeArbitrator:timeArbitrator 
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
+      .patch(
+        `http://127.0.0.1:8000/api/request/user-request/${item.id}/`,
+        {
+          confirmTimeArbitrator: timeArbitrator,
         },
-      }
-    )
-    .then((response) => {
-      console.log(response.data)
-      // setLoading(false);
-      setOpen(false)
-    })
-    .catch((error) => {
-      console.log(error);
-      setOpen(false)
-    });
-  }
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        // setLoading(false);
+        setOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setOpen(false);
+      });
+  };
 
   const handleTimePresentative = () => {
     window.location.reload();
     axios
-    .patch(
-      `http://127.0.0.1:8000/api/request/user-request/${item.id}/`,
-      {
-        confirmTimePresentative:timePresentative
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
+      .patch(
+        `http://127.0.0.1:8000/api/request/user-request/${item.id}/`,
+        {
+          confirmTimePresentative: timePresentative,
         },
-      }
-    )
-    .then((response) => {
-      console.log(response.data)
-      // setLoading(false);
-      setOpen(false)
-    })
-    .catch((error) => {
-      console.log(error);
-      setOpen(false)
-    });
-  }
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        // setLoading(false);
+        setOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setOpen(false);
+      });
+  };
+  const handleFinalTime = () => {
+    window.location.reload();
+    axios
+      .patch(
+        `http://127.0.0.1:8000/api/request/user-request/${item.id}/`,
+        {
+          final_time: finalTime,
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        // setLoading(false);
+        setOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setOpen(false);
+      });
+  };
   return (
     <>
       <Card sx={{ maxWidth: 345 }}>
@@ -120,7 +145,7 @@ const Agent = ({ item, users, user, step }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         dir="rtl"
-        style={{ overflowY: "scroll", }}
+        style={{ overflowY: "scroll" }}
       >
         <Box sx={style}>
           <Typography
@@ -182,23 +207,28 @@ const Agent = ({ item, users, user, step }) => {
             sx={{ mt: 2 }}
           >
             {item.file && (
-                  <i
-                    class="bi bi-filetype-pdf"
-                    style={{ color: "red", fontSize: "2rem" }}
+              <i
+                class="bi bi-filetype-pdf"
+                style={{ color: "red", fontSize: "2rem" }}
+              >
+                <span
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "1rem",
+                    cursor: "pointer",
+                    color: "#135d66",
+                    fontWeight: "800",
+                  }}
+                >
+                  <a
+                    style={{ color: "black", textDecoration: "none" }}
+                    href={`http://127.0.0.1:8000/${item.file}`}
                   >
-                    <span
-                      style={{
-                        fontSize: "1rem",
-                        marginRight: "1rem",
-                        cursor: "pointer",
-                        color: "#135d66",
-                        fontWeight: "800",
-                      }}
-                    >
-                      <a style={{color:'black',textDecoration:'none'}} href={`http://127.0.0.1:8000/${item.file}`}>دریافت فایل</a>
-                    </span>
-                  </i>
-                )}
+                    دریافت فایل
+                  </a>
+                </span>
+              </i>
+            )}
           </Typography>
           <hr />
           <Typography
@@ -274,8 +304,7 @@ const Agent = ({ item, users, user, step }) => {
                   id="modal-modal-description"
                   sx={{ mt: 2 }}
                 >
-                  زمان های تایید شده توسط داور :
-                  {item.confirmTimeArbitrator}
+                  زمان های تایید شده توسط داور :{item.confirmTimeArbitrator}
                 </Typography>
               )}
               {item.confirmTimePresentative && (
@@ -326,21 +355,21 @@ const Agent = ({ item, users, user, step }) => {
                 step === 0 &&
                 item.postgraduatere_presentative === user.id && (
                   <>
-                  <Typography
-                    style={{ fontWeight: "700" }}
-                    id="modal-modal-description"
-                    sx={{ mt: 2 }}
-                  >
-                    <Form.Label>
-                      زمان مورد تایید (حداقل دو زمان اضافه کنید) :
-                    </Form.Label>
-                    <Form.Control
-                      onChange={(e) => setTimePresentative(e.target.value)}
-                      type="text"
-                      required
-                    />
-                  </Typography>
-                  <Typography
+                    <Typography
+                      style={{ fontWeight: "700" }}
+                      id="modal-modal-description"
+                      sx={{ mt: 2 }}
+                    >
+                      <Form.Label>
+                        زمان مورد تایید (حداقل دو زمان اضافه کنید) :
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => setTimePresentative(e.target.value)}
+                        type="text"
+                        required
+                      />
+                    </Typography>
+                    <Typography
                       style={{ fontWeight: "700" }}
                       id="modal-modal-description"
                       sx={{ mt: 2 }}
@@ -356,6 +385,56 @@ const Agent = ({ item, users, user, step }) => {
                     </Typography>
                   </>
                 )}
+              {item.confirmTimeArbitrator &&
+                item.confirmTimePresentative &&
+                step != 5 && (
+                  <>
+                    <hr />
+                    <Typography
+                      style={{ fontWeight: "700" }}
+                      id="modal-modal-description"
+                      sx={{ mt: 2 }}
+                    >
+                      زمان نهایی دفاع : {""}
+                      {item.final_time
+                        ? item.final_time
+                        : "در انتظار تایید استاد راهنما"}
+                    </Typography>
+                  </>
+                )}
+              {step === 5 && !item.final_time && (
+                <>
+                <hr />
+                  <Typography
+                    style={{ fontWeight: "700" }}
+                    id="modal-modal-description"
+                    sx={{ mt: 2 }}
+                  >
+                    <Form.Label>
+                      افزودن زمان نهایی :
+                    </Form.Label>
+                    <Form.Control
+                      onChange={(e) => setFinaltime(e.target.value)}
+                      type="text"
+                      required
+                    />
+                  </Typography>
+                  <Typography
+                    style={{ fontWeight: "700" }}
+                    id="modal-modal-description"
+                    sx={{ mt: 2 }}
+                  >
+                    <Button
+                      style={{ marginLeft: "0.5rem", fontWeight: "700" }}
+                      onClick={(e) => handleFinalTime(e)}
+                      variant="primary"
+                      type="submit"
+                    >
+                      تایید و ارسال
+                    </Button>
+                  </Typography>
+                </>
+              )}
             </>
           )}
         </Box>

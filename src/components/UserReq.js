@@ -140,11 +140,11 @@ const UserReq = ({ item, id, Toast, token }) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             dir="rtl"
-            style={{ overflowY: "scroll" }}
+            style={{ overflowY: "scroll", }}
           >
             <Box sx={style}>
               <Typography
-                style={{ fontWeight: "700" }}
+                style={{ fontWeight: "700",marginTop:'4rem' }}
                 id="modal-modal-title"
                 variant="h6"
                 component="h2"
@@ -215,7 +215,12 @@ const UserReq = ({ item, id, Toast, token }) => {
                         fontWeight: "800",
                       }}
                     >
-                      <a style={{color:'#135d66',textDecoration:'none'}} href={`http://127.0.0.1:8000/${req.file}`}>دریافت فایل</a>
+                      <a
+                        style={{ color: "#135d66", textDecoration: "none" }}
+                        href={`http://127.0.0.1:8000/${req.file}`}
+                      >
+                        دریافت فایل
+                      </a>
                     </span>
                   </i>
                 )}
@@ -308,6 +313,22 @@ const UserReq = ({ item, id, Toast, token }) => {
                       {req.confirmTimePresentative}
                     </Typography>
                   )}
+                  {req.confirmTimeArbitrator &&
+                    req.confirmTimePresentative && (
+                      <>
+                        <hr />
+                        <Typography
+                          style={{ fontWeight: "700" }}
+                          id="modal-modal-description"
+                          sx={{ mt: 2 }}
+                        >
+                          زمان نهایی دفاع : {""}
+                          {req.final_time
+                            ? req.final_time
+                            : "در انتظار تایید استاد راهنما"}
+                        </Typography>
+                      </>
+                    )}
                 </>
               )}
             </Box>
